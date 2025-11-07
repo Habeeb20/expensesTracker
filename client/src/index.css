@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom dark colors */
+.dark {
+  --color-bg: #090909FF;
+  --color-card: #111111;
+  --color-text: #e5e5e5;
+  --color-muted: #888888;
+}
+
+.bg-dark-bg { background-color: #090909FF; }
+.dark .bg-dark-bg { background-color: #090909FF; }
