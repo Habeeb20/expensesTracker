@@ -29,29 +29,34 @@ const calculateSummary = async (userId) => {
   return { income, expense, total, warning };
 };
 
+// CREATE Transaction (Income/Expense)
 export const createTransaction = async (req, res) => {
   try {
-    const { amount, type, category, description, date } = req.body;
+    const { amount, type, category, description, date, tags } = req.body;
     const userId = req.user._id;
 
-    if (!amount || amount <= 0) {
-      return res.status(400).json({ success: false, message: 'Valid amount required' });
-    }
-
+    // Validate category
     const cat = await Category.findOne({ _id: category, user: userId });
     if (!cat || cat.type !== type) {
       return res.status(400).json({ success: false, message: 'Invalid category' });
     }
 
-    // Save transaction with amount
     const transaction = await Transaction.create({
       user: userId,
       amount,
       type,
       category,
       description,
-      date: date || new Date()
+      date: date || Date.now(),
+      tags
     });
+
+    // Update budget spent if exists
+    const budget = await Budget.findOne({ user: userId, category: cat.name, isActive: true });
+    if (budget && type === 'expense') {
+      budget.spent += amount;
+      await budget.save();
+    }
 
     const summary = await calculateSummary(userId);
     res.json({ success: true, transaction, summary });
@@ -59,6 +64,7 @@ export const createTransaction = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 // GET All Transactions + Summary + Warnings
 export const getTransactions = async (req, res) => {
   try {

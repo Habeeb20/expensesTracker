@@ -190,7 +190,7 @@ router.get("/dashboard", verifyToken, async(req, res) => {
   try {
     const userId = req.user._id; 
 
-    const user = await User.findById(userId).select('first_name currency theme');
+    const user = await User.findById(userId).select('first_name last_name email currency theme');
 
     // 2. Get transactions
     const transactions = await Transaction.find({ user: userId });

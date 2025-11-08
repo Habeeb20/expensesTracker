@@ -10,9 +10,10 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { cn } from '../../utils/cn';
 import TransactionsPage from './TransactionPage';
 import CategoryForm from './CategoryForm';
+import DashboardOverview from './DasboardOverview';
 
 // Page Components
-const DashboardContent = () => <div className="p-6 text-xl">Dashboard Overview</div>;
+const DashboardContent = () => <DashboardOverview/>
 const Transactions = () => <TransactionsPage/>
 const Budgets = () => <div className="p-6 text-xl">Budgets</div>;
 const Todos = () => <div className="p-6 text-xl">To‑Do List</div>;
