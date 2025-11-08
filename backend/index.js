@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken"
 import userRoutes from "./routes/userRoute.js"
 import transactionRoutes from "./routes/transactionRoute.js"
 import categoriesRoute from  "./routes/categoryRoute.js"
+import budgetRoute from "./routes/budgetRoute.js"
 connectDB()
 
 
@@ -54,6 +55,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", userRoutes)
 app.use("/api", transactionRoutes)
+app.use("/api/budgets",budgetRoute)
 app.use("/api/categories", categoriesRoute)
 
 

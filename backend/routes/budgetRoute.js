@@ -1,4 +1,3 @@
-// routes/transactionRoutes.js
 import express from 'express';
 import { verifyToken } from '../utils/helpers.js';
 import { createTransaction,  getTransactions,
@@ -10,11 +9,7 @@ const router = express.Router();
 
 router.use(verifyToken);
 
-router.post('/transaction', createTransaction);
-router.get('/transactions', getTransactions);
-router.get('/analytics', getAnalytics);
-
-router.post('/budgets', createBudget);
+router.post('/budget', createBudget);
 router.get('/budgets', getBudgets);
 router.put("/:id", updateBudget)
 router.delete("/:id", deleteBudget)

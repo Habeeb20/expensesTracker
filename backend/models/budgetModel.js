@@ -25,7 +25,10 @@ const BudgetSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
-  }
+  },
+  dueDate: { type: Date, }, // NEW
+  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+
 }, {
   timestamps: true
 });
