@@ -12,12 +12,13 @@ import TransactionsPage from './TransactionPage';
 import CategoryForm from './CategoryForm';
 import DashboardOverview from './DasboardOverview';
 import BudgetList from './BudgetList';
+import TodoManager from './TodoManager';
 
 // Page Components
 const DashboardContent = () => <DashboardOverview/>
 const Transactions = () => <TransactionsPage/>
 const Budgets = () => <BudgetList/>
-const Todos = () => <div className="p-6 text-xl">To‑Do List</div>;
+const Todos = () =><TodoManager/>
 const SettingsPage = () => <CategoryForm/>
 
 const Dashboard = () => {
@@ -124,7 +125,7 @@ const Dashboard = () => {
       </nav>
 
       {/* Mobile Bottom Nav */}
-      <div className={`md:hidden fixed bottom-0 left-0 w-full ${sidebarBg} ${textColor} p-2 flex justify-around items-center z-20 shadow-lg`}>
+      <div className={`md:hidden fixed bottom-0 left-0 w-full ${sidebarBg} ${textColor} p-1 flex justify-around items-center z-20 shadow-lg`}>
         {bottomNavItems.map((item) => (
           <button
             key={item.name}

@@ -10,6 +10,7 @@ import userRoutes from "./routes/userRoute.js"
 import transactionRoutes from "./routes/transactionRoute.js"
 import categoriesRoute from  "./routes/categoryRoute.js"
 import budgetRoute from "./routes/budgetRoute.js"
+import todorouter from "./routes/todoRoute.js";
 connectDB()
 
 
@@ -57,6 +58,7 @@ app.use("/api/user", userRoutes)
 app.use("/api", transactionRoutes)
 app.use("/api/budgets",budgetRoute)
 app.use("/api/categories", categoriesRoute)
+app.use("/api/todos", todorouter)
 
 
 // Error handling

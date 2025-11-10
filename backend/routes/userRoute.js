@@ -133,7 +133,7 @@ router.post("/auto-login", async(req, res) => {
     try {
         const response = await axios.post("https://auth.edirect.ng/api/auto-login", {
         email: email,
-        platform: "edrive",
+        platform: "expense-tracker",
       });
 
 
@@ -146,15 +146,6 @@ router.post("/auto-login", async(req, res) => {
       });
     }
 
-
-     let profile = null;
-    try {
-      profile = await Profile.findOne({ userId: user.userId });
-    } catch (dbError) {
-      console.warn("Profile lookup failed (non-critical):", dbError.message);
-      res.status(400).json({message: "profile is not updated, please update your profile"})
-    }
-    
 
   
       const payload = {
