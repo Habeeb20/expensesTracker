@@ -25,7 +25,7 @@ const GoogleAutoLoginModal = ({ isOpen, onClose }) => {
         { email }
       );
       localStorage.setItem('token', res.data.token);
-      toast.success('Logged in with Google!');
+      toast.success('Logged in with E-auth!');
       setTimeout(() => { window.location.href = '/dashboard'; }, 1500);
     } catch (err) {
       toast.error('Failed', { description: err.response?.data?.message || 'Try again' });
@@ -60,7 +60,7 @@ const GoogleAutoLoginModal = ({ isOpen, onClose }) => {
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="your@gmail.com"
-            className="w-full px-4 py-3 rounded-xl border mb-4"
+            className="w-full px-4 py-3 text-black rounded-xl border mb-4"
             disabled={loading}
           />
           <button

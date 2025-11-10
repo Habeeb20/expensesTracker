@@ -202,7 +202,7 @@ const LoginForm = () => {
       </div>
 
       {/* Google Login Button */}
-      <motion.button
+      {/* <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => setGoogleModalOpen(true)}
@@ -239,7 +239,7 @@ const LoginForm = () => {
         <GoogleAutoModal
         isOpen={googleModalOpen}
         onClose={() => setGoogleModalOpen(false)}
-      />
+      /> */}
 
       {/* Footer */}
       <p className="text-center text-sm mt-6">

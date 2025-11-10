@@ -10,10 +10,10 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { Eye, EyeOff } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import { useNavigate } from 'react-router-dom';
-
+import { toast } from 'sonner';
 const SignupForm = () => {
   const { isDark } = useTheme();
-  const { toast } = useSonner();
+  // const { toast } = useSonner();
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -68,25 +68,27 @@ const navigate = useNavigate()
       // Simulate API call (replace with your real endpoint)
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/register`, formData);
       if(response.ok){
-        navigate("/login")
+           window.location.href = '/login';
       }
       
       // Success toast
       toast.success('Welcome aboard!', {
         description: `Hi ${formData.first_name}! Your account is ready. Redirecting...`,
+    
         duration: 4000,
       });
+          navigate("/login")
      
 
       // Simulate redirect after 2s
-      setTimeout(() => {
-        window.location.href = '/login';
-        console.log('Redirect to dashboard');
-      }, 2000);
+      // setTimeout(() => {
+      //   window.location.href = '/login';
+      //   console.log('Redirect to dashboard');
+      // }, 2000);
 
     } catch (error) {
-      // Error toast
-      const message = error.response?.data?.message || 'Something went wrong. Please try again.';
+     console.log(error)
+      const message = error?.response?.data?.message || 'Something went wrong. Please try again.';
       toast.error('Signup failed', {
         description: message,
         duration: 5000,

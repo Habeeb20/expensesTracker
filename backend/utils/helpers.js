@@ -79,6 +79,7 @@ export const verifyToken = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // const user = await User.findById(decoded.id).select('-password');
     const user = await User.findById(decoded.id).select('-password');
     if (!user) {
       return res.status(401).json({
@@ -112,3 +113,71 @@ export const verifyToken = async (req, res, next) => {
     });
   }
 };
+
+
+
+
+
+
+
+
+
+// export const verifyToken = async (req, res, next) => {
+//   try {
+  
+//     const authHeader = req.headers.authorization;
+//     const token = authHeader && authHeader.startsWith('Bearer ')
+//       ? authHeader.split(' ')[1]
+//       : req.cookies?.token; 
+
+//     if (!token) {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Access denied. No token provided.',
+//       });
+//     }
+
+
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+//     // const user = await User.findById(decoded.id).select('-password');
+//     const user = await User.findOne({userId: decoded.userId }).select('_id userId');
+//     if (!user) {
+//          console.log('User not found for ID:', decoded.id);
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Invalid token - user not found.',
+//       });
+//     }
+
+ 
+//     // req.user = user;
+ 
+//     req.user = {
+//          id: user._id.toString(),        // MongoDB _id
+//          userId: user.userId,  
+//     }
+//       console.log('Verified user:', req.user);
+//     next();
+//   } catch (error) {
+//     console.error('Token verification error:', error.message);
+
+//     if (error.name === 'JsonWebTokenError') {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Invalid token.',
+//       });
+//     }
+//     if (error.name === 'TokenExpiredError') {
+//       return res.status(401).json({
+//         success: false,
+//         message: 'Token expired. Please log in again.',
+//       });
+//     }
+
+//     res.status(500).json({
+//       success: false,
+//       message: 'Server error during authentication.',
+//     });
+//   }
+// };

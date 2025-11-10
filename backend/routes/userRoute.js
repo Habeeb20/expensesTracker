@@ -8,6 +8,7 @@ import crypto from "crypto"
 import { verifyToken } from '../utils/helpers.js';
 import Transaction from "../models/userModel.js"
 import Budget from "../models/categoryModel.js"
+import { v4 as uuidv4 } from 'uuid';
 const router = express.Router();
 
 
@@ -56,6 +57,7 @@ router.post('/register', async (req, res) => {
       email,
       password: hashedPassword,
       uniqueNumber,
+      userId:uuidv4()
     });
 
     // 7. Attempt external auth system
@@ -65,6 +67,7 @@ router.post('/register', async (req, res) => {
         first_name,
         last_name,
         email,
+        userId:user.userId,
         password, 
         role: 'user',
       });
@@ -148,7 +151,7 @@ router.post("/auto-login", async(req, res) => {
 
 
   
-      const payload = {
+   const payload = {
       userId:user.userId,  
      
     
@@ -157,11 +160,11 @@ router.post("/auto-login", async(req, res) => {
       expiresIn: "7d",
     });
 
-   let roleMessage = "";
+   
  
    return res.status(200).json({
       status: true,
-      message: `Successfully logged in. ${roleMessage}`,
+      message: `Successfully logged in. `,
       token,
       user: {
         _id: user._id,
