@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { motion } from 'framer-motion';
-import LOGO_PATH from "../../public/expense.jpeg"
+import LOGO_PATH from "../../public/expense.jpg"
 
 
 const ImageLoadingSpinner = ({

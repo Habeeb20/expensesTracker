@@ -11,6 +11,7 @@ import transactionRoutes from "./routes/transactionRoute.js"
 import categoriesRoute from  "./routes/categoryRoute.js"
 import budgetRoute from "./routes/budgetRoute.js"
 import todorouter from "./routes/todoRoute.js";
+import forecastRouter from "./routes/forcastRoute.js"
 connectDB()
 
 
@@ -60,6 +61,7 @@ app.use("/api/budgets",budgetRoute)
 app.use("/api/categories", categoriesRoute)
 app.use("/api/todos", todorouter)
 
+app.use('/api/forecast', forecastRouter);
 
 // Error handling
 app.use((err, req, res, next) => {

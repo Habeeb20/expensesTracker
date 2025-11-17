@@ -54,8 +54,10 @@ const LoginForm = () => {
         duration: 4000,
       });
 
+      console.log(res.data)
       // Save token & redirect
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem("userId", res.data.user?.id)
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 1500);

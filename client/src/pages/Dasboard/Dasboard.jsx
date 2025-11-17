@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Menu, X, Home, Receipt, PiggyBank, CheckSquare, Settings, LogOut, MoreVertical
+  Menu, X, Home, Receipt, PiggyBank, CheckSquare, Settings, LogOut, MoreVertical,
+  Cast
 } from 'lucide-react';
 import Loading from '../../utils/Loading';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -13,12 +14,14 @@ import CategoryForm from './CategoryForm';
 import DashboardOverview from './DasboardOverview';
 import BudgetList from './BudgetList';
 import TodoManager from './TodoManager';
+import ForecastDashboard from './Forcast';
 
 // Page Components
 const DashboardContent = () => <DashboardOverview/>
 const Transactions = () => <TransactionsPage/>
 const Budgets = () => <BudgetList/>
 const Todos = () =><TodoManager/>
+const ForeCast = () =><ForecastDashboard/>
 const SettingsPage = () => <CategoryForm/>
 
 const Dashboard = () => {
@@ -81,6 +84,7 @@ const Dashboard = () => {
     { name: 'Budgets', icon: PiggyBank, component: <Budgets /> },
     { name: 'To-Do', icon: CheckSquare, component: <Todos /> },
     { name: 'Add Category', icon: Settings, component: <SettingsPage /> },
+    { name: 'Forecast', icon: Cast, component: <ForeCast /> },
     { name: 'Logout', icon: LogOut, action: handleLogout },
   ];
 
