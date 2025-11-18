@@ -9,6 +9,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { cn } from '../../utils/cn';
 import ImageLoadingSpinner from '../../utils/Loading';
 
+
 const iconOptions = [
   { name: 'PiggyBank', icon: 'piggy-bank' },
   { name: 'Utensils', icon: 'utensils' },
@@ -90,6 +91,8 @@ const CategoryForm = ({ onSuccess }) => {
   if(loading) return <ImageLoadingSpinner />
   return (
     <div className="space-y-4">
+    
+    
       {/* Toggle Button */}
       <motion.button
         whileHover={{ scale: 1.05 }}
@@ -99,7 +102,9 @@ const CategoryForm = ({ onSuccess }) => {
       >
         <Plus className="w-5 h-5" />
         New Category
+        
       </motion.button>
+
 
       {/* Form */}
       {showForm && (

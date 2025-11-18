@@ -12,6 +12,8 @@ import categoriesRoute from  "./routes/categoryRoute.js"
 import budgetRoute from "./routes/budgetRoute.js"
 import todorouter from "./routes/todoRoute.js";
 import forecastRouter from "./routes/forcastRoute.js"
+import networtRoute from "./routes/networtRoute.js"
+import recurringRoute from "./routes/reoccuring.js"
 connectDB()
 
 
@@ -62,6 +64,8 @@ app.use("/api/categories", categoriesRoute)
 app.use("/api/todos", todorouter)
 
 app.use('/api/forecast', forecastRouter);
+app.use("/api", networtRoute)
+app.use("/api", recurringRoute)
 
 // Error handling
 app.use((err, req, res, next) => {

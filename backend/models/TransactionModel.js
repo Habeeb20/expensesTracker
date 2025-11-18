@@ -22,3 +22,6 @@ const TransactionSchema = new mongoose.Schema({
 
 
 export default mongoose.model('Transaction', TransactionSchema);
+
+
+

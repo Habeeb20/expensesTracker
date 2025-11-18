@@ -15,14 +15,20 @@ import DashboardOverview from './DasboardOverview';
 import BudgetList from './BudgetList';
 import TodoManager from './TodoManager';
 import ForecastDashboard from './Forcast';
+import NetWorthDashboard from './Networth';
+import RecurringDashboard from './Reoccuring';
 
 // Page Components
 const DashboardContent = () => <DashboardOverview/>
 const Transactions = () => <TransactionsPage/>
 const Budgets = () => <BudgetList/>
 const Todos = () =><TodoManager/>
+const YourNetWort = () =><NetWorthDashboard/>
+const Prediction = () =><RecurringDashboard/>
 const ForeCast = () =><ForecastDashboard/>
 const SettingsPage = () => <CategoryForm/>
+
+
 
 const Dashboard = () => {
   const [content, setContent] = useState(<DashboardContent />);
@@ -85,6 +91,8 @@ const Dashboard = () => {
     { name: 'To-Do', icon: CheckSquare, component: <Todos /> },
     { name: 'Add Category', icon: Settings, component: <SettingsPage /> },
     { name: 'Forecast', icon: Cast, component: <ForeCast /> },
+    { name: 'AI Prediction', icon: Cast, component: <Prediction /> },
+    { name: 'Your-Networth', icon: Cast, component: <YourNetWort /> },
     { name: 'Logout', icon: LogOut, action: handleLogout },
   ];
 
