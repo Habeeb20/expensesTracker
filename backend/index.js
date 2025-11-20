@@ -13,7 +13,9 @@ import budgetRoute from "./routes/budgetRoute.js"
 import todorouter from "./routes/todoRoute.js";
 import forecastRouter from "./routes/forcastRoute.js"
 import networtRoute from "./routes/networtRoute.js"
+import debtRoute from "./routes/DebtTrackerRoutes.js"
 import recurringRoute from "./routes/reoccuring.js"
+import yearlyrouter from "./routes/yearlyRoute.js";
 connectDB()
 
 
@@ -66,7 +68,8 @@ app.use("/api/todos", todorouter)
 app.use('/api/forecast', forecastRouter);
 app.use("/api", networtRoute)
 app.use("/api", recurringRoute)
-
+app.use("/api", debtRoute)
+app.use("/api", yearlyrouter)
 // Error handling
 app.use((err, req, res, next) => {
   console.error("Error:", err.stack);

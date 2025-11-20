@@ -3,6 +3,7 @@
 import Transaction from '../models/TransactionModel.js';
 import Category from '../models/categoryModel.js';
 import Budget from '../models/budgetModel.js';
+import mongoose from 'mongoose';
 
 // Helper: Calculate income, expense, total
 const calculateSummary = async (userId) => {
@@ -30,38 +31,83 @@ const calculateSummary = async (userId) => {
 };
 
 // CREATE Transaction (Income/Expense)
+// export const createTransaction = async (req, res) => {
+//   try {
+//     const { amount, type, category, description, date, tags } = req.body;
+//     const userId = req.user._id;
+
+//     // Validate category
+//     const cat = await Category.findOne({ _id: category, user: userId });
+//     if (!cat || cat.type !== type) {
+//       return res.status(400).json({ success: false, message: 'Invalid category' });
+//     }
+
+//     const transaction = await Transaction.create({
+//       user: userId,
+//       amount,
+//       type,
+//       category,
+//       description,
+//       date: date || Date.now(),
+//       tags
+//     });
+
+//     // Update budget spent if exists
+//     const budget = await Budget.findOne({ user: userId, category: cat.name, isActive: true });
+//     if (budget && type === 'expense') {
+//       budget.spent += amount;
+//       await budget.save();
+//     }
+
+//     const summary = await calculateSummary(userId);
+//     res.json({ success: true, transaction, summary });
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).json({ success: false, message: error.message });
+//   }
+// };
+
+
+
+
+
 export const createTransaction = async (req, res) => {
   try {
-    const { amount, type, category, description, date, tags } = req.body;
-    const userId = req.user._id;
+    const { amount, type, category, description, date } = req.body;
 
-    // Validate category
-    const cat = await Category.findOne({ _id: category, user: userId });
-    if (!cat || cat.type !== type) {
-      return res.status(400).json({ success: false, message: 'Invalid category' });
+    // FIX: Handle category as string OR ObjectId
+    let categoryId;
+    if (mongoose.Types.ObjectId.isValid(category)) {
+      categoryId = category;
+    } else {
+      // It's a name like "Food", "Others", "Transport"
+      let cat = await Category.findOne({ 
+        name: { $regex: `^${category}$`, $options: 'i' },
+        user: req.user.id 
+      });
+
+      if (!cat) {
+        cat = await Category.create({
+          name: category,
+          user: req.user.id
+        });
+      }
+      categoryId = cat._id;
     }
 
     const transaction = await Transaction.create({
-      user: userId,
+      user: req.user.id,
       amount,
       type,
-      category,
-      description,
-      date: date || Date.now(),
-      tags
+      category: categoryId,  // ← now always valid ObjectId
+      description: description || '',
+      date: date || new Date()
     });
 
-    // Update budget spent if exists
-    const budget = await Budget.findOne({ user: userId, category: cat.name, isActive: true });
-    if (budget && type === 'expense') {
-      budget.spent += amount;
-      await budget.save();
-    }
-
-    const summary = await calculateSummary(userId);
-    res.json({ success: true, transaction, summary });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(201).json(transaction);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 

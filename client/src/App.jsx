@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 // src/App.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import SignupPage from './pages/SignupPage';
@@ -9,6 +10,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dasboard/Dasboard';
+
+// To auto-refresh all pages when voice adds transaction
+// useEffect(() => {
+//   const handleRefresh = () => {
+//     window.location.reload(); // or your custom refresh
+//   };
+//   window.addEventListener('transactionAdded', handleRefresh);
+//   return () => window.removeEventListener('transactionAdded', handleRefresh);
+// }, []);
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

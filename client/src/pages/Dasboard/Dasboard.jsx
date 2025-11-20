@@ -17,6 +17,10 @@ import TodoManager from './TodoManager';
 import ForecastDashboard from './Forcast';
 import NetWorthDashboard from './Networth';
 import RecurringDashboard from './Reoccuring';
+import DebtTracker from './DebtTracker';
+import SMSParser from './SMSparser';
+import YearInReview from './YearlyReview';
+import VoiceExpenseAdder from './VoiceAdder';
 
 // Page Components
 const DashboardContent = () => <DashboardOverview/>
@@ -26,6 +30,9 @@ const Todos = () =><TodoManager/>
 const YourNetWort = () =><NetWorthDashboard/>
 const Prediction = () =><RecurringDashboard/>
 const ForeCast = () =><ForecastDashboard/>
+const DebtTrackers = () => <DebtTracker/>
+const SMSParserPage = () => <SMSParser/>
+const YearlyPage = () => <YearInReview/>
 const SettingsPage = () => <CategoryForm/>
 
 
@@ -83,16 +90,32 @@ const Dashboard = () => {
     navigate('/login');
   };
 
+
+
+useEffect(() => {
+  const handleRefresh = () => {
+
+    window.location.reload(); 
+   
+  };
+  window.addEventListener('transactionAdded', handleRefresh);
+  return () => window.removeEventListener('transactionAdded', handleRefresh);
+}, []);
+
   // Expense Tracker Menu Items
   const menuItems = [
     { name: 'Dashboard', icon: Home, component: <DashboardContent /> },
     { name: 'Transactions', icon: Receipt, component: <Transactions /> },
     { name: 'Budgets', icon: PiggyBank, component: <Budgets /> },
+    { name: 'Voice Command', icon: CheckSquare, component: <VoiceExpenseAdder /> },
     { name: 'To-Do', icon: CheckSquare, component: <Todos /> },
     { name: 'Add Category', icon: Settings, component: <SettingsPage /> },
     { name: 'Forecast', icon: Cast, component: <ForeCast /> },
     { name: 'AI Prediction', icon: Cast, component: <Prediction /> },
     { name: 'Your-Networth', icon: Cast, component: <YourNetWort /> },
+    { name: 'Debt Tracker', icon: Cast, component: <DebtTrackers /> },
+    { name: 'SMS-parser', icon: Cast, component: <SMSParser /> },
+    { name: 'Yearly-Review', icon: Cast, component: <YearlyPage /> },
     { name: 'Logout', icon: LogOut, action: handleLogout },
   ];
 

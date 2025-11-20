@@ -6,7 +6,7 @@ const TransactionSchema = new mongoose.Schema({
   account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
   amount: Number,
   type: { type: String, enum: ['income', 'expense'] },
-  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', default: 'Others' },
   description: String,
   date: { type: Date, default: Date.now },
   tags: [String],
