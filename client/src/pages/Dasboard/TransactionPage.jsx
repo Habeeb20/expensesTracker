@@ -15,6 +15,7 @@ import CategoryForm from './CategoryForm';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import ReceiptScanner from './ReceiptScanner';
+import ImageLoadingSpinner from '../../utils/Loading';
 
 const COLORS = ['#10b981', '#ef4444', '#3b82f6', '#f59e0b', '#8b5cf6'];
 
@@ -90,6 +91,7 @@ const TransactionsPage = () => {
         resetForm();
         fetchData();
       } else {
+        console.log(json.message)
         toast.error(json.message);
       }
     } catch (err) {
@@ -294,6 +296,7 @@ const TransactionsPage = () => {
               className="flex-1 bg-green text-white py-3 rounded-xl font-medium hover:bg-green/90 transition"
             >
               Save
+              {loading ? (<ImageLoadingSpinner />) : "saving..."}
             </button>
             <button
               type="button"
