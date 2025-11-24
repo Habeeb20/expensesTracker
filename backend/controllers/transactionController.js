@@ -162,3 +162,26 @@ export const getAnalytics = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+
+
+export const deleteATransaction = async (req, res) => {
+  try {
+    await Transaction.findOneAndDelete({ _id: req.params.id, user: req.user.id });
+    res.json({ success: true, message: 'Transaction deleted' });
+  } catch (err) {
+    res.status(500).json({ success: false });
+  }
+}
+
+
+export const deleteAllTransactions = async(req, res) => {
+ try {
+    await Transaction.deleteMany({ user: req.user.id });
+    res.json({ success: true, message: 'All transactions deleted' });
+  } catch (err) {
+    res.status(500).json({ success: false });
+  }
+}
+
+
