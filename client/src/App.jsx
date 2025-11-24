@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dasboard/Dasboard';
+import ForgotPassword from './pages/aut/ForgotPasswordPage';
+import ResetPassword from './pages/aut/ResetPassword';
 
 // To auto-refresh all pages when voice adds transaction
 // useEffect(() => {
@@ -62,6 +64,8 @@ function App() {
               <Route path="/sign-up" element={<SignupPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/reset-password/:token" element={<ResetPassword />} />
 
     
             </Routes>

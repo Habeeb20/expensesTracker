@@ -9,7 +9,7 @@ import ImageLoadingSpinner from '../../utils/Loading';
 import GoogleAutoModal from "./GoogleAutoModal"
 import { useTheme } from '../../contexts/ThemeContext';
 import { cn } from '../../utils/cn';
-
+import { Link } from 'react-router-dom';
 const LoginForm = () => {
   const { isDark } = useTheme();
   const [formData, setFormData] = useState({
@@ -196,10 +196,10 @@ const LoginForm = () => {
         <div className="absolute inset-0 flex items-center">
           <span className={cn('w-full border-t', isDark ? 'border-gray-700' : 'border-gray-300')} />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className={cn('px-2', isDark ? 'bg-[#090909FF]' : 'bg-white', 'text-gray-500')}>
-            or continue with
-          </span>
+              <div className="relative flex justify-center text-xs uppercase">
+                <Link to="/forgot-password" className="text-green-800 font-medium hover:underline">
+  Forgot password?
+</Link>
         </div>
       </div>
 
