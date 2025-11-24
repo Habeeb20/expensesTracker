@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   Menu, X, Home, Receipt, PiggyBank, CheckSquare, Settings, LogOut, MoreVertical,
-  Cast
+  Cast,
+  Delete
 } from 'lucide-react';
 import Loading from '../../utils/Loading';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -21,7 +22,7 @@ import DebtTracker from './DebtTracker';
 import SMSParser from './SMSparser';
 import YearInReview from './YearlyReview';
 import VoiceExpenseAdder from './VoiceAdder';
-
+import DeleteAccount from './DeleteAccount';
 // Page Components
 const DashboardContent = () => <DashboardOverview/>
 const Transactions = () => <TransactionsPage/>
@@ -34,6 +35,7 @@ const DebtTrackers = () => <DebtTracker/>
 const SMSParserPage = () => <SMSParser/>
 const YearlyPage = () => <YearInReview/>
 const SettingsPage = () => <CategoryForm/>
+const DeleteAccounts = () => <DeleteAccount/>
 
 
 
@@ -116,6 +118,7 @@ useEffect(() => {
     { name: 'Debt Tracker', icon: Cast, component: <DebtTrackers /> },
     { name: 'SMS-parser', icon: Cast, component: <SMSParser /> },
     { name: 'Yearly-Review', icon: Cast, component: <YearlyPage /> },
+    { name: 'Delete-Account', icon: Delete, component: <DeleteAccounts /> },
     { name: 'Logout', icon: LogOut, action: handleLogout },
   ];
 
@@ -136,7 +139,7 @@ useEffect(() => {
 
   const baseClasses = 'block py-2.5 px-4 text-gray-700 hover:bg-gray-200 flex items-center';
   const activeClasses = 'block py-2.5 px-4 text-white bg-gray-300 rounded-l-lg flex items-center';
-  const appBackground = isDark ? 'bg-[#090909FF]' : 'bg-white';
+  const appBackground = isDark ? 'bg-[#090909FF]' : 'bg-gray-300';
   const textColor = isDark ? 'text-green' : 'text-gray-800';
   const sidebarBg = isDark ? 'bg-gray-900' : 'bg-gradient-to-b from-yellow-50 to-white';
 

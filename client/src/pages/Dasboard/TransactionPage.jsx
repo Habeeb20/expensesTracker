@@ -881,7 +881,7 @@ const downloadAllAsPDF = async () => {
   }
 };
 
-  if (loading) return <Loading />;
+  if (loading) return <ImageLoadingSpinner />;
 
   return (
     <div className={cn('p-4 space-y-6', isDark ? 'bg-[#090909FF]' : 'bg-gray-50')}>
@@ -1003,7 +1003,7 @@ const downloadAllAsPDF = async () => {
               className="flex-1 bg-green text-white py-3 rounded-xl font-medium hover:bg-green/90 transition"
             >
               Save
-              {loading ? (<ImageLoadingSpinner />) : "saving..."}
+          
             </button>
             <button
               type="button"

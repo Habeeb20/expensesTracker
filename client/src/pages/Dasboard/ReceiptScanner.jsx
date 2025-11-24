@@ -76,7 +76,7 @@ export default function ReceiptScanner({ onExpenseDetected }) {
     <div className="fixed bottom-20 right-6 z-50">
       <label className="cursor-pointer">
         <input type="file" accept="image/*" capture="camera" className="hidden" onChange={handleCapture} disabled={scanning} />
-        <div className={`w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-white text-3xl transition-all ${scanning ? 'bg-gray-500 animate-pulse' : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:scale-110'}`}>
+        <div className={`w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-white text-3xl transition-all ${scanning ? 'bg-gray-500 animate-pulse' : 'bg-green hover:scale-110'}`}>
           {scanning ? '...' : '📸'}
         </div>
       </label>

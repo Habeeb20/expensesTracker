@@ -14,7 +14,7 @@ export const theme = {
      dark: {
           bg: '#090909FF',      // your custom black
           card: '#111111',
-          text: '#e5e5e5',
+          text: '#E5E5E5FF',
           muted: '#888888',
         },
  

@@ -155,7 +155,7 @@ const Navbar = ({ toggleSidebar }) => {
               "text-xl font-bold",
               isDark ? "text-green" : "text-gray-900 dark:text-dark-text"
             )}>
-              ExpenseTracker
+            Naira-Wise
             </h1>
           </div>
 

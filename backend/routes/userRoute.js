@@ -9,6 +9,10 @@ import { verifyToken } from '../utils/helpers.js';
 import Transaction from "../models/userModel.js"
 import Budget from "../models/categoryModel.js"
 import { v4 as uuidv4 } from 'uuid';
+import Category from '../models/categoryModel.js';
+import Debt from "../models/DebtTrackerModel.js"
+import Recurring from "../models/reoccurringModel.js"
+
 const router = express.Router();
 
 
@@ -279,5 +283,44 @@ router.post('/reset-password/:token', async (req, res) => {
   }
 });
 
+
+
+
+router.delete('/delete-account',verifyToken, async (req, res) => {
+  try {
+    const userId = req.user?._id || req.user?.id;
+
+    // OPTIONAL: Ask for password confirmation
+    const { password } = req.body;
+    if (!password) {
+      return res.status(400).json({ message: 'Password required to delete account' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Incorrect password' });
+    }
+
+    // DELETE EVERYTHING BELONGING TO USER
+    await Promise.all([
+      Transaction.deleteMany({ user: userId }),
+      Category.deleteMany({ user: userId }),
+      Debt.deleteMany({ userId }),
+      Recurring.deleteMany({ userId }),
+      // Add more if you have: Budget, Goals, Notes, etc.
+    ]);
+
+    // Finally delete the user
+    await User.findByIdAndDelete(userId);
+
+    res.json({ success: true, message: 'Account and all data deleted permanently' });
+  } catch (err) {
+    console.error('Delete account error:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 export default router;
