@@ -23,6 +23,7 @@ import SMSParser from './SMSparser';
 import YearInReview from './YearlyReview';
 import VoiceExpenseAdder from './VoiceAdder';
 import DeleteAccount from './DeleteAccount';
+import NairaWiseAIFloatingButton from '../../components/AIFloating';
 // Page Components
 const DashboardContent = () => <DashboardOverview/>
 const Transactions = () => <TransactionsPage/>
@@ -233,6 +234,7 @@ useEffect(() => {
       <main className="flex-1 ml-0 md:ml-56 p-4 pt-20 md:pt-20 overflow-y-auto">
         {content}
       </main>
+      <NairaWiseAIFloatingButton/>
     </div>
   );
 };

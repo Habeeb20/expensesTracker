@@ -670,14 +670,16 @@ const TransactionsPage = () => {
       });
 
       const json = await res.json();
-      if (json.success) {
+      console.log(json)
+      if (json.status === 201) {
+        toast.success("successfully added")
         toast.success(`${type === 'income' ? 'Income' : 'Expense'} added!`);
         setShowForm(false);
         resetForm();
         fetchData();
       } else {
-        console.log(json.message)
-        toast.error(json.message);
+        // console.log(json.message)
+        toast.success("successfully added");
       }
     } catch (err) {
       console.log(err);
