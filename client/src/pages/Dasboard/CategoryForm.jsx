@@ -46,9 +46,9 @@ const CategoryForm = ({ onSuccess }) => {
     e.preventDefault();
     if (!name.trim()) return toast.error('Name is required');
 
-    if (type === 'expense' && (!budget || budget <= 0)) {
-      return toast.error('Budget required for expenses');
-    }
+    // if (type === 'expense' && (!budget || budget <= 0)) {
+    //   return toast.error('Budget required for expenses');
+    // }
 
     try {
       setLoading(true);
@@ -179,23 +179,28 @@ const CategoryForm = ({ onSuccess }) => {
           </div>
 
           {/* Budget (only for expense) */}
-          {type === 'expense' && (
-            <div>
-              <label className="block text-sm font-medium mb-2">Budget (NGN)</label>
-              <input
-                type="number"
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-                placeholder="e.g. 50000"
-                className={cn(
-                  'w-full p-3 rounded-xl border focus:ring-2 focus:ring-green',
-                  isDark ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-300'
-                )}
-                min="1"
-                required
-              />
-            </div>
-          )}
+         {type === 'expense' && (
+  <div>
+    <label className="block text-sm font-medium mb-2">
+      Do you have any Budget for this expense (NGN)
+    </label>
+    <input
+      type="number"
+      value={budget ?? ''}                  
+      onChange={(e) => {
+        const val = e.target.value;
+        // If empty → store as 0, otherwise store the number as string
+        setBudget(val === '' ? '0' : val);
+      }}
+      placeholder="e.g. 50000"
+      className={cn(
+        'w-full p-3 rounded-xl border focus:ring-2 focus:ring-green',
+        isDark ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-300'
+      )}
+      min="0"                              
+    />
+  </div>
+)}
 
           {/* Icon Picker */}
           <div>
@@ -265,3 +270,12 @@ const CategoryForm = ({ onSuccess }) => {
 };
 
 export default CategoryForm;
+
+
+
+
+
+
+
+
+

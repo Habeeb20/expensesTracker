@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dasboard/Dasboard';
 import ForgotPassword from './pages/aut/ForgotPasswordPage';
 import ResetPassword from './pages/aut/ResetPassword';
+import LandingPage from './pages/LandingPage';
 
 // To auto-refresh all pages when voice adds transaction
 // useEffect(() => {
@@ -44,7 +45,7 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <LoginPage/>
+                  <LandingPage/>
                   // <motion.div
                   //   initial={{ opacity: 0, y: 20 }}
                   //   animate={{ opacity: 1, y: 0 }}

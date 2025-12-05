@@ -123,7 +123,7 @@ useEffect(() => {
     { name: 'Logout', icon: LogOut, action: handleLogout },
   ];
 
-  const bottomNavItems = menuItems.slice(0, 4); // Show 4 in bottom
+  const bottomNavItems = menuItems.slice(0, 3); // Show 4 in bottom
   const moreItem = { name: 'More', icon: MoreVertical };
 
   const handleNavigation = (component, menuName, action) => {
