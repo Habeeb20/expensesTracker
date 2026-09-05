@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "nairawise",
+    "slug": "nairawise",
+     "scheme": "nairawise",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/nairawise.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/nairawise.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-secure-store"
+    ]
+  }
+}
