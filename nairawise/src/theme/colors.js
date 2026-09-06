@@ -1,5 +1,3 @@
-// src/theme/colors.js
-
 export const darkTheme = {
   // Backgrounds
   background: '#0D0F12',
@@ -11,6 +9,7 @@ export const darkTheme = {
   primaryMuted: '#0FA76B',
   secondary: '#7C5CFC',
   secondaryMuted: '#5B3FD1',
+  onPrimary: '#0D0F12',        // ← text/icon color that sits ON TOP of `primary`
 
   // Text
   textPrimary: '#F5F5F7',
@@ -45,6 +44,7 @@ export const lightTheme = {
   primaryMuted: '#047857',
   secondary: '#6D28D9',
   secondaryMuted: '#5B21B6',
+  onPrimary: '#FFFFFF',        // ← text/icon color that sits ON TOP of `primary`
 
   // Text
   textPrimary: '#1A1A1A',
@@ -68,7 +68,7 @@ export const lightTheme = {
   info: '#2563EB',
 };
 
-// Category colors — shared across both themes, used for charts/tags
+// Shared across both themes — used for category tags, charts, and dots
 export const categoryColors = {
   food: '#FF9F43',
   transport: '#54A0FF',
