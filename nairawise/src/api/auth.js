@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export const login = async(email, password) => {
-    const {data} = await apiClient.post('/auth/login', {email, password});
+    const {data} = await apiClient.post('/api/user/login', {email, password});
     if(data?.token){
         await SecureStore.setItemAsync('auth_token', data.token);
     }
@@ -16,7 +16,7 @@ export const login = async(email, password) => {
 
 
 export const register = async(first_name, last_name, email, password) => {
-    const {data} = await apiClient.post('/auth/register', [first_name, last_name, email, password]);
+    const {data} = await apiClient.post('/api/user/register', {first_name, last_name, email, password});
     if(data?.token) {
         await SecureStore.setItemAsync('auth_token', data.token);
     }
@@ -39,6 +39,6 @@ export const getStoredUser = async () => {
 };
 
 export const getCurrentUser = async () => {
-  const { data } = await apiClient.get('/auth/me');
+  const { data } = await apiClient.get('/api/user/me');
   return data;
 };

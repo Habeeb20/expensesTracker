@@ -3,12 +3,15 @@ import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform
 import { useRouter } from 'expo-router';
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft } from 'lucide-react-native';
 import { useTheme } from '../../src/theme/ThemeContext';
+import { register } from '../../src/api/auth';
+import { toast } from 'sonner-native';
 
 export default function Register() {
     const { theme, isDark } = useTheme();
     const router = useRouter();
 
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +19,7 @@ export default function Register() {
     const [error, setError] = useState('');
 
     const handleRegister = async () => {
-        if (!name || !email || !password) {
+        if (!firstName || !lastName || !email || !password) {
             setError('Please fill in all fields');
             return;
         }
@@ -27,10 +30,15 @@ export default function Register() {
         setError('');
         setLoading(true);
         try {
-            // TODO: call register({ name, email, password }) from src/api/auth.js
-            // router.replace('/(tabs)') on success
+            await register(firstName, lastName, email, password);
+            toast.success("Signup successfully")
+            router.replace('/(tabs)');
+
         } catch (e) {
-            setError('Something went wrong. Please try again');
+       
+            const message = e?.response?.data?.message || 'Something went wrong. Please try again';
+               toast.error(message)
+            setError(message);
         } finally {
             setLoading(false);
         }
@@ -76,9 +84,9 @@ export default function Register() {
                         </View>
                     ) : null}
 
-                    {/* Name field */}
+                    {/* First name field */}
                     <Text style={{ color: theme.textSecondary }} className="text-sm font-medium mb-2">
-                        Full name
+                        First Name
                     </Text>
                     <View
                         className="flex-row items-center rounded-2xl px-4 mb-5 border"
@@ -86,10 +94,31 @@ export default function Register() {
                     >
                         <User size={18} color={theme.textMuted} />
                         <TextInput
-                            value={name}
-                            onChangeText={setName}
-                            placeholder="Habeeb Waliyu"
+                            value={firstName}
+                            onChangeText={setFirstName}
+                            placeholder="Habeeb"
                             placeholderTextColor={theme.textMuted}
+                            autoCapitalize="words"
+                            className="flex-1 ml-3 text-[15px]"
+                            style={{ color: theme.textPrimary }}
+                        />
+                    </View>
+
+                    {/* Last name field */}
+                    <Text style={{ color: theme.textSecondary }} className="text-sm font-medium mb-2">
+                        Last Name
+                    </Text>
+                    <View
+                        className="flex-row items-center rounded-2xl px-4 mb-5 border"
+                        style={{ backgroundColor: theme.surface, borderColor: theme.border, height: 56 }}
+                    >
+                        <User size={18} color={theme.textMuted} />
+                        <TextInput
+                            value={lastName}
+                            onChangeText={setLastName}
+                            placeholder="Waliyu"
+                            placeholderTextColor={theme.textMuted}
+                            autoCapitalize="words"
                             className="flex-1 ml-3 text-[15px]"
                             style={{ color: theme.textPrimary }}
                         />

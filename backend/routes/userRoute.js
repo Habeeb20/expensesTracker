@@ -64,29 +64,6 @@ router.post('/register', async (req, res) => {
       userId:uuidv4()
     });
 
-    // 7. Attempt external auth system
-    try {
-      await axios.post('https://auth.edirect.ng/api/register', {
-        platform: 'expense-tracker',
-        first_name,
-        last_name,
-        email,
-        userId:user.userId,
-        password, 
-        role: 'user',
-      });
-      authResponse.externalServices.authSystem = {
-        success: true,
-        message: 'Auth system registration successful',
-      };
-    } catch (authError) {
-      console.error('External auth failed:', authError.response?.data || authError.message);
-      authResponse.externalServices.authSystem = {
-        success: false,
-        message: 'Failed to register with auth system',
-      };
-    
-    }
 
     // 8. Generate JWT
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
@@ -122,6 +99,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  
   const user = await User.findOne({ email });
   if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 

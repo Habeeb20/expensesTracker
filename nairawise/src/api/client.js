@@ -1,28 +1,29 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:1000";
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL
+
+// const BASE_URL = "https://expenses-tracker-3zbh.vercel.app";
+// const BASE_URL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:1000";
 
 const apiClient = axios.create({
-    baseUrl:BASE_URL,
+    baseURL: BASE_URL,   // ✅ fixed casing
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
     },
 })
 
-
 apiClient.interceptors.request.use(
-    async(config) => {
+    async (config) => {
         const token = await SecureStore.getItemAsync("auth_token");
-        if(token ){
+        if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
-         return config
+        return config
     },
-   (error) => Promise.reject(error)
+    (error) => Promise.reject(error)
 )
-
 
 apiClient.interceptors.response.use(
   (response) => response,
@@ -34,8 +35,5 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-
-
 
 export default apiClient;
