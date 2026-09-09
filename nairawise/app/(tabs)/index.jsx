@@ -205,7 +205,7 @@ export default function Home() {
 
                     {/* Quick action */}
                     <TouchableOpacity
-                        onPress={() => router.push('/transactions/new')}
+                        onPress={() => router.push('/add')}
                         className="flex-row items-center justify-center rounded-2xl py-4 mb-8 border"
                         style={{ borderColor: theme.border, borderStyle: 'dashed' }}
                     >

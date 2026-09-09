@@ -1,7 +1,8 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_URL
+const BASE_URL = "http://192.168.100.13:1000"
+// const BASE_URL = process.env.EXPO_PUBLIC_API_URL
 
 // const BASE_URL = "https://expenses-tracker-3zbh.vercel.app";
 // const BASE_URL = process.env.EXPO_PUBLIC_API_URL || "http://localhost:1000";

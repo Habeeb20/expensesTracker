@@ -75,31 +75,31 @@ export const createTransaction = async (req, res) => {
   try {
     const { amount, type, category, description, date } = req.body;
 
-    // FIX: Handle category as string OR ObjectId
-    let categoryId;
-    if (mongoose.Types.ObjectId.isValid(category)) {
-      categoryId = category;
-    } else {
-      // It's a name like "Food", "Others", "Transport"
-      let cat = await Category.findOne({ 
-        name: { $regex: `^${category}$`, $options: 'i' },
-        user: req.user.id 
-      });
+    // // FIX: Handle category as string OR ObjectId
+    // let categoryId;
+    // if (mongoose.Types.ObjectId.isValid(category)) {
+    //   categoryId = category;
+    // } else {
+    //   // It's a name like "Food", "Others", "Transport"
+    //   let cat = await Category.findOne({ 
+    //     name: { $regex: `^${category}$`, $options: 'i' },
+    //     user: req.user.id 
+    //   });
 
-      if (!cat) {
-        cat = await Category.create({
-          name: category,
-          user: req.user.id
-        });
-      }
-      categoryId = cat._id;
-    }
+    //   if (!cat) {
+    //     cat = await Category.create({
+    //       name: category,
+    //       user: req.user.id
+    //     });
+    //   }
+    //   categoryId = cat._id;
+    // }
 
     const transaction = await Transaction.create({
       user: req.user.id,
       amount,
       type,
-      category: categoryId,  // ← now always valid ObjectId
+      category,
       description: description || '',
       date: date || new Date()
     });

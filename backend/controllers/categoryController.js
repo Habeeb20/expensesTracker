@@ -60,6 +60,7 @@ export const createCategory = async (req, res) => {
 
     res.status(201).json({ success: true, category });
   } catch (error) {
+    console.log(error)
     if (error.code === 11000) {
       return res.status(400).json({ success: false, message: 'Category already exists' });
     }
