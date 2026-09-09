@@ -1,20 +1,217 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+// import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+// import { useRouter } from 'expo-router';
+// import { toast } from 'sonner-native';
+// import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react-native';
+// import { useTheme } from "../../src/theme/ThemeContext";
+// import { login } from "../../src/api/auth";
+
+// export default function Login() {
+//   const { theme, isDark } = useTheme();
+//   const router = useRouter();
+
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [showPassword, setShowPassword] = useState(false);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState('');
+
+//   const handleLogin = async () => {
+//     if (!email || !password) {
+//       setError('Please enter your email and password');
+//       return;
+//     }
+//     setError('');
+//     setLoading(true);
+//     try {
+//       const data = await login(email, password);
+//       toast.success(data?.message || 'Welcome back!');
+//       router.replace('/(tabs)');
+//     } catch (e) {
+//         console.log(e)
+//       const message = e?.response?.data?.message || 'Invalid email or password';
+//       setError(message);
+//       toast.error(message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <KeyboardAvoidingView
+//       style={{ flex: 1, backgroundColor: theme.background }}
+//       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+//     >
+//       <ScrollView
+//         contentContainerStyle={{ flexGrow: 1 }}
+//         keyboardShouldPersistTaps="handled"
+//         showsVerticalScrollIndicator={false}
+//       >
+//         <View className="flex-1 px-6 pt-16 pb-10">
+//           <TouchableOpacity
+//             onPress={() => router.back()}
+//             className="w-10 h-10 rounded-full items-center justify-center mb-8"
+//             style={{ backgroundColor: theme.surface, borderWidth: 1, borderColor: theme.border }}
+//           >
+//             <ArrowLeft size={18} color={theme.textPrimary} />
+//           </TouchableOpacity>
+
+//           <Text style={{ color: theme.textPrimary }} className="text-[30px] font-bold mb-2">
+//             Welcome back
+//           </Text>
+//           <Text style={{ color: theme.textSecondary }} className="text-base mb-10">
+//             Log in to keep track of your money.
+//           </Text>
+
+//           {error ? (
+//             <View
+//               className="rounded-xl px-4 py-3 mb-5"
+//               style={{ backgroundColor: isDark ? 'rgba(255,107,107,0.12)' : 'rgba(220,38,38,0.08)' }}
+//             >
+//               <Text style={{ color: theme.expense }} className="text-sm font-medium">
+//                 {error}
+//               </Text>
+//             </View>
+//           ) : null}
+
+//           <Text style={{ color: theme.textSecondary }} className="text-sm font-medium mb-2">
+//             Email address
+//           </Text>
+//           <View
+//             className="flex-row items-center rounded-2xl px-4 mb-5 border"
+//             style={{ backgroundColor: theme.surface, borderColor: theme.border, height: 56 }}
+//           >
+//             <Mail size={18} color={theme.textMuted} />
+//             <TextInput
+//               value={email}
+//               onChangeText={setEmail}
+//               placeholder="you@example.com"
+//               placeholderTextColor={theme.textMuted}
+//               keyboardType="email-address"
+//               autoCapitalize="none"
+//               className="flex-1 ml-3 text-[15px]"
+//               style={{ color: theme.textPrimary }}
+//             />
+//           </View>
+
+//           <Text style={{ color: theme.textSecondary }} className="text-sm font-medium mb-2">
+//             Password
+//           </Text>
+//           <View
+//             className="flex-row items-center rounded-2xl px-4 mb-3 border"
+//             style={{ backgroundColor: theme.surface, borderColor: theme.border, height: 56 }}
+//           >
+//             <Lock size={18} color={theme.textMuted} />
+//             <TextInput
+//               value={password}
+//               onChangeText={setPassword}
+//               placeholder="••••••••"
+//               placeholderTextColor={theme.textMuted}
+//               secureTextEntry={!showPassword}
+//               className="flex-1 ml-3 text-[15px]"
+//               style={{ color: theme.textPrimary }}
+//             />
+//             <TouchableOpacity onPress={() => setShowPassword((v) => !v)}>
+//               {showPassword ? (
+//                 <EyeOff size={18} color={theme.textMuted} />
+//               ) : (
+//                 <Eye size={18} color={theme.textMuted} />
+//               )}
+//             </TouchableOpacity>
+//           </View>
+
+//           <TouchableOpacity onPress={() => router.push('/forgot-password')} className="self-end mb-8">
+//             <Text style={{ color: theme.primary }} className="text-sm font-semibold">
+//               Forgot password?
+//             </Text>
+//           </TouchableOpacity>
+
+//           <TouchableOpacity
+//             onPress={handleLogin}
+//             disabled={loading}
+//             className="rounded-2xl py-4 items-center mb-6"
+//             style={{ backgroundColor: theme.primary, opacity: loading ? 0.7 : 1 }}
+//           >
+//             <Text style={{ color: theme.onPrimary }} className="text-base font-bold">
+//               {loading ? 'Logging in...' : 'Log in'}
+//             </Text>
+//           </TouchableOpacity>
+
+//           <View className="flex-row justify-center items-center gap-1.5 mt-auto">
+//             <Text style={{ color: theme.textSecondary }} className="text-sm">
+//               Don't have an account?
+//             </Text>
+//             <TouchableOpacity onPress={() => router.push('/register')}>
+//               <Text style={{ color: theme.primary }} className="text-sm font-bold">
+//                 Sign up
+//               </Text>
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//       </ScrollView>
+//     </KeyboardAvoidingView>
+//   );
+// }
+
+
+
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { toast } from 'sonner-native';
-import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react-native';
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, Fingerprint } from 'lucide-react-native';
 import { useTheme } from "../../src/theme/ThemeContext";
-import { login } from "../../src/api/auth";
+import { useBiometric } from "../../src/theme/BiometricContext";
+import { login, hasStoredSession } from "../../src/api/auth";
+import EnableBiometricSheet from '../../src/components/EnableBiometrics';
+
 
 export default function Login() {
   const { theme, isDark } = useTheme();
   const router = useRouter();
+  const { isSupported, isEnabled, authenticate, toggleBiometric } = useBiometric();
+  const sheetRef = useRef(null);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [bioLoading, setBioLoading] = useState(false);
+  const [canUseBiometricLogin, setCanUseBiometricLogin] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    (async () => {
+      if (isSupported && isEnabled) {
+        const hasSession = await hasStoredSession();
+        setCanUseBiometricLogin(hasSession);
+      }
+    })();
+  }, [isSupported, isEnabled]);
+
+  const handleBiometricLogin = async () => {
+    setBioLoading(true);
+    try {
+      const success = await authenticate('Log in to your account');
+      if (success) {
+        router.replace('/(tabs)');
+      } else {
+        toast.error('Fingerprint not recognized');
+      }
+    } finally {
+      setBioLoading(false);
+    }
+  };
+
+  const handleEnableBiometric = useCallback(async () => {
+    const success = await toggleBiometric(true);
+    sheetRef.current?.dismiss();
+    if (success) {
+      toast.success('Fingerprint login enabled');
+    } else {
+      toast.error('Could not enable fingerprint login');
+    }
+  }, [toggleBiometric]);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -27,8 +224,12 @@ export default function Login() {
       const data = await login(email, password);
       toast.success(data?.message || 'Welcome back!');
       router.replace('/(tabs)');
+
+      if (isSupported && !isEnabled) {
+        setTimeout(() => sheetRef.current?.present(), 400);
+      }
     } catch (e) {
-        console.log(e)
+      console.log(e);
       const message = e?.response?.data?.message || 'Invalid email or password';
       setError(message);
       toast.error(message);
@@ -62,6 +263,20 @@ export default function Login() {
           <Text style={{ color: theme.textSecondary }} className="text-base mb-10">
             Log in to keep track of your money.
           </Text>
+
+          {canUseBiometricLogin && (
+            <TouchableOpacity
+              onPress={handleBiometricLogin}
+              disabled={bioLoading}
+              className="flex-row items-center justify-center rounded-2xl py-4 mb-5 border"
+              style={{ borderColor: theme.primary, opacity: bioLoading ? 0.7 : 1 }}
+            >
+              <Fingerprint size={18} color={theme.primary} />
+              <Text style={{ color: theme.primary }} className="text-base font-bold ml-2">
+                {bioLoading ? 'Verifying...' : 'Log in with fingerprint'}
+              </Text>
+            </TouchableOpacity>
+          )}
 
           {error ? (
             <View
@@ -149,6 +364,12 @@ export default function Login() {
           </View>
         </View>
       </ScrollView>
+
+      <EnableBiometricSheet
+        ref={sheetRef}
+        onEnable={handleEnableBiometric}
+        onDismiss={() => sheetRef.current?.dismiss()}
+      />
     </KeyboardAvoidingView>
   );
 }

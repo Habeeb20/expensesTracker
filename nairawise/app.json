@@ -2,13 +2,18 @@
   "expo": {
     "name": "nairawise",
     "slug": "nairawise",
-     "scheme": "nairawise",
+    "scheme": "nairawise",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/nairawise.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSSpeechRecognitionUsageDescription": "Allow NairaWise to use speech recognition to add transactions by voice.",
+        "NSMicrophoneUsageDescription": "Allow NairaWise to use the microphone to add transactions by voice."
+      },
+      "bundleIdentifier": "com.ademolawaliyu.nairawise"
     },
     "android": {
       "adaptiveIcon": {
@@ -16,7 +21,11 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.codequor.nairawise"
     },
     "web": {
       "favicon": "./assets/nairawise.png"
@@ -24,7 +33,23 @@
     "plugins": [
       "expo-router",
       "expo-status-bar",
-      "expo-secure-store"
-    ]
+      "expo-secure-store",
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Allow NairaWise to use the microphone to add transactions by voice.",
+          "speechRecognitionPermission": "Allow NairaWise to use speech recognition to add transactions by voice.",
+          "androidSpeechServicePackages": [
+            "com.google.android.googlequicksearchbox"
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "7d0add72-14fe-425a-8699-c25eb52e1708"
+      }
+    }
   }
 }

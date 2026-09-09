@@ -21,6 +21,7 @@ import {
   MoreHorizontal,
   ArrowUpCircle,
   ArrowDownCircle,
+  MonitorCloud,
 } from 'lucide-react-native';
 
 import { useTheme } from '../../src/theme/ThemeContext';
@@ -30,6 +31,8 @@ import { createTransaction } from '../../src/api/transaction';
 
 const CATEGORIES = [
   { key: 'food', label: 'Food', icon: UtensilsCrossed },
+  { key: 'allowance', label: 'Allowance', icon: UtensilsCrossed },
+  { key: 'salary', label: 'Salary', icon: MonitorCloud },
   { key: 'transport', label: 'Transport', icon: Car },
   { key: 'bills', label: 'Bills', icon: Receipt },
   { key: 'shopping', label: 'Shopping', icon: ShoppingBag },

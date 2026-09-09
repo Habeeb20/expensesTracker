@@ -6,7 +6,7 @@ import User from '../models/userModel.js';
 import axios from "axios"
 import crypto from "crypto"
 import { verifyToken } from '../utils/helpers.js';
-import Transaction from "../models/userModel.js"
+import Transaction from "../models/TransactionModel.js"
 import Budget from "../models/categoryModel.js"
 import { v4 as uuidv4 } from 'uuid';
 import Category from '../models/categoryModel.js';
@@ -162,52 +162,105 @@ router.post("/auto-login", async(req, res) => {
 })
 
 
-router.get("/dashboard", verifyToken, async(req, res) => {
+// router.get("/dashboard", verifyToken, async(req, res) => {
+//   try {
+//     const userId = req.user._id; 
+
+//     const user = await User.findById(userId).select('first_name last_name email currency theme');
+
+//     // 2. Get transactions
+//     const transactions = await Transaction.find({ user: userId });
+//     const income = transactions
+//       .filter(t => t.type === 'income')
+//       .reduce((sum, t) => sum + t.amount, 0);
+//     const expense = transactions
+//       .filter(t => t.type === 'expense')
+//       .reduce((sum, t) => sum + t.amount, 0);
+//     const balance = income - expense;
+
+//     // 3. Recent 5 transactions
+//     const recent = await Transaction.find({ user: userId })
+//       .sort({ date: -1 })
+//       .limit(5)
+//       .select('title amount type date');
+
+//     // 4. Active budgets
+//     const budgets = await Budget.find({ user: userId, isActive: true })
+//       .select('category limit spent');
+
+//     res.json({
+//       success: true,
+//       user: {
+//         name: user.first_name,
+//         currency: user.currency,
+//         theme: user.theme
+//       },
+//       summary: { balance, income, expense },
+//       recent,
+//       budgets
+//     });
+
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: 'Server error' });
+//   }
+// });
+
+
+
+// FORGOT PASSWORD
+
+
+
+router.get("/dashboard", verifyToken, async (req, res) => {
+  console.log(req.user)
   try {
-    const userId = req.user._id; 
+    const userId = req.user._id;
 
     const user = await User.findById(userId).select('first_name last_name email currency theme');
 
-    // 2. Get transactions
-    const transactions = await Transaction.find({ user: userId });
-    const income = transactions
-      .filter(t => t.type === 'income')
-      .reduce((sum, t) => sum + t.amount, 0);
-    const expense = transactions
-      .filter(t => t.type === 'expense')
-      .reduce((sum, t) => sum + t.amount, 0);
+    const transactions = await Transaction.find({ user: user });
+    console.log(transactions)
+    const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+    const expense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
     const balance = income - expense;
 
-    // 3. Recent 5 transactions
-    const recent = await Transaction.find({ user: userId })
+    // FIX: include category (populated for its name) and description (used as title)
+    const recentRaw = await Transaction.find({ user: userId })
       .sort({ date: -1 })
       .limit(5)
-      .select('title amount type date');
+      .select('description amount type date category')
+      .populate('category', 'name');
 
-    // 4. Active budgets
-    const budgets = await Budget.find({ user: userId, isActive: true })
-      .select('category limit spent');
+      console.log(recentRaw)
 
+    const recent = recentRaw.map(t => ({
+      _id: t._id,
+      title: t.description || 'Transaction',
+      amount: t.amount,
+      type: t.type,
+      date: t.date,
+      category: t.category?.name?.toLowerCase() || 'other',
+    }));
+
+    const budgets = await Budget.find({ user: userId, isActive: true }).select('category limit spent');
+console.log(balance, income, expense )
     res.json({
       success: true,
       user: {
         name: user.first_name,
         currency: user.currency,
-        theme: user.theme
+        theme: user.theme,
       },
       summary: { balance, income, expense },
       recent,
-      budgets
+      budgets,
     });
-
   } catch (error) {
+    console.error(error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 });
 
-
-
-// FORGOT PASSWORD
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
   try {
