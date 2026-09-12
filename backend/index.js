@@ -16,6 +16,7 @@ import networtRoute from "./routes/networtRoute.js"
 import debtRoute from "./routes/DebtTrackerRoutes.js"
 import recurringRoute from "./routes/reoccuring.js"
 import yearlyrouter from "./routes/yearlyRoute.js";
+import schedulingRoutes from "./routes/schedullingRoute.js"
 connectDB()
 
 
@@ -64,6 +65,7 @@ app.use("/api", transactionRoutes)
 app.use("/api/budgets",budgetRoute)
 app.use("/api/categories", categoriesRoute)
 app.use("/api/todos", todorouter)
+app.use('/api/scheduling', schedulingRoutes)
 
 app.use('/api/forecast', forecastRouter);
 app.use("/api", networtRoute)

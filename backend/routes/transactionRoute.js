@@ -4,12 +4,16 @@ import { verifyToken } from '../utils/helpers.js';
 import { createTransaction,  getTransactions,
   getAnalytics, deleteATransaction, deleteAllTransactions  } from '../controllers/transactionController.js';
 import { createBudget,  deductBudget,  deleteBudget,  getBudgets, updateBudget} from '../controllers/BudgetController.js';
-
-
+import { upload } from '../utils/upload.js';
+import { scanReceipt } from '../controllers/transactionController.js';
 const router = express.Router();
 
 router.use(verifyToken);
 
+
+
+
+router.post('/scan-receipt', upload.single('receipt'), scanReceipt);
 router.post('/transaction', createTransaction);
 router.get('/transactions', getTransactions);
 router.get('/analytics', getAnalytics);

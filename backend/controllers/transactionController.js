@@ -4,6 +4,9 @@ import Transaction from '../models/TransactionModel.js';
 import Category from '../models/categoryModel.js';
 import Budget from '../models/budgetModel.js';
 import mongoose from 'mongoose';
+import { upload } from '../utils/upload.js';
+
+import { extractTextFromImage, extractFigures } from '../utils/receiptOcr.js';
 
 // Helper: Calculate income, expense, total
 const calculateSummary = async (userId) => {
@@ -67,6 +70,30 @@ const calculateSummary = async (userId) => {
 //   }
 // };
 
+
+export const scanReceipt = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'No image uploaded' });
+    }
+
+    const rawText = await extractTextFromImage(req.file.buffer, req.file.originalname);
+    const figures = extractFigures(rawText);
+
+    if (figures.length === 0) {
+      return res.status(200).json({
+        success: true,
+        figures: [],
+        message: 'Could not detect any figures on this receipt. Try a clearer photo.',
+      });
+    }
+
+    res.status(200).json({ success: true, figures, rawText });
+  } catch (err) {
+    console.error('[scanReceipt]', err);
+    res.status(500).json({ success: false, message: 'Failed to scan receipt' });
+  }
+};
 
 
 
@@ -183,5 +210,19 @@ export const deleteAllTransactions = async(req, res) => {
     res.status(500).json({ success: false });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
