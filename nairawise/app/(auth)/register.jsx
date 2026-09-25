@@ -96,7 +96,7 @@ export default function Register() {
                         <TextInput
                             value={firstName}
                             onChangeText={setFirstName}
-                            placeholder="Habeeb"
+                            placeholder="John"
                             placeholderTextColor={theme.textMuted}
                             autoCapitalize="words"
                             className="flex-1 ml-3 text-[15px]"
@@ -116,7 +116,7 @@ export default function Register() {
                         <TextInput
                             value={lastName}
                             onChangeText={setLastName}
-                            placeholder="Waliyu"
+                            placeholder="Doe"
                             placeholderTextColor={theme.textMuted}
                             autoCapitalize="words"
                             className="flex-1 ml-3 text-[15px]"
