@@ -6,5 +6,5 @@ export const budgetApi = {
   editBudget: (id, payload) => apiClient.put(`/api/budgets/${id}`, payload).then((r) => r.data),
   updateSpent: (id, spent) => apiClient.patch(`/api/budgets/${id}/spent`, { spent }).then((r) => r.data),
   deductBudget: (id, payload) => apiClient.post(`/api/budgets/deduct/${id}`, payload).then((r) => r.data),
-  deleteBudget: (id) => apiClient.delete(`/${id}`).then((r) => r.data),
+  deleteBudget: (id) => apiClient.delete(`/api/budgets/${id}`).then((r) => r.data),
 };

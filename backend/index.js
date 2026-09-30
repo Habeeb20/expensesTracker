@@ -3,7 +3,8 @@ import express from "express"
 import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
-
+import path from "path";
+import { fileURLToPath } from "url";
 import connectDB from "./db.js";
 import jwt from "jsonwebtoken"
 import userRoutes from "./routes/userRoute.js"
@@ -17,7 +18,11 @@ import debtRoute from "./routes/DebtTrackerRoutes.js"
 import recurringRoute from "./routes/reoccuring.js"
 import yearlyrouter from "./routes/yearlyRoute.js";
 import schedulingRoutes from "./routes/schedullingRoute.js"
+
+
 connectDB()
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 ///**********   ROUTES   ******** */
@@ -60,6 +65,10 @@ app.get("/", (req, res) => {
   res.send("expense tracker backend is listening on port....");
 });
 
+app.get('/privacy-policy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'utils', 'privacy.html'));
+});
+
 app.use("/api/user", userRoutes)
 app.use("/api", transactionRoutes)
 app.use("/api/budgets",budgetRoute)
@@ -89,6 +98,24 @@ app.listen(port, async () => {
   console.log(`Server is running on port ${port}`);
 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

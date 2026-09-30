@@ -16,8 +16,21 @@ export const getTransaction = async () => {
   return data;
 };
 
+
+
+export const updateTransaction = async (id, data) => {
+  const res = await  apiClient.put(`/api/transaction/${id}`, data);
+  return res.data;
+};
+
 export const deleteTransaction = async (id) => {
-  await apiClient.delete(`/api/transaction/${id}`);
+  const res = await  apiClient.delete(`/api/transaction/${id}`);
+  return res.data;
+};
+
+export const deleteAllTransactions = async () => {
+  const res = await  apiClient.delete('/api/transactions/all');
+  return res.data;
 };
 
 

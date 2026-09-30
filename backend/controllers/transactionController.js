@@ -194,13 +194,20 @@ export const getAnalytics = async (req, res) => {
 
 export const deleteATransaction = async (req, res) => {
   try {
-    await Transaction.findOneAndDelete({ _id: req.params.id, user: req.user.id });
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ success: false, message: 'Invalid transaction id' });
+    }
+    const deleted = await Transaction.findOneAndDelete({ _id: id, user: req.user.id });
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: 'Transaction not found' });
+    }
     res.json({ success: true, message: 'Transaction deleted' });
   } catch (err) {
-    res.status(500).json({ success: false });
+    console.error('[deleteATransaction]', err);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
-}
-
+};
 
 export const deleteAllTransactions = async(req, res) => {
  try {
@@ -214,6 +221,47 @@ export const deleteAllTransactions = async(req, res) => {
 
 
 
+
+export const updateTransaction = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ success: false, message: 'Invalid transaction id' });
+    }
+
+    const allowed = ['amount', 'type', 'category', 'description', 'date'];
+    const updates = {};
+    for (const key of allowed) {
+      if (req.body[key] !== undefined) updates[key] = req.body[key];
+    }
+
+    if (updates.amount !== undefined) {
+      const n = Number(updates.amount);
+      if (!Number.isFinite(n) || n <= 0) {
+        return res.status(400).json({ success: false, message: 'Amount must be a positive number' });
+      }
+      updates.amount = n;
+    }
+    if (updates.type && !['income', 'expense'].includes(updates.type)) {
+      return res.status(400).json({ success: false, message: 'Invalid type' });
+    }
+
+    const transaction = await Transaction.findOneAndUpdate(
+      { _id: id, user: req.user.id },
+      updates,
+      { new: true, runValidators: true }
+    );
+
+    if (!transaction) {
+      return res.status(404).json({ success: false, message: 'Transaction not found' });
+    }
+
+    res.json(transaction);
+  } catch (err) {
+    console.error('[updateTransaction]', err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
 
 
 

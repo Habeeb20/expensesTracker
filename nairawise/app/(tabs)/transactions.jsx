@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, RefreshControl, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, RefreshControl, ActivityIndicator,  Alert, Modal, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFocusEffect } from 'expo-router';
 import {
   UtensilsCrossed,
@@ -15,10 +15,11 @@ import {
   TrendingUp,
   TrendingDown,
   Wallet,
+  Trash2, X
 } from 'lucide-react-native';
 import { useTheme } from '../../src/theme/ThemeContext';
 import { categoryColors } from '../../src/theme/colors';
-import { getTransaction } from '../../src/api/transaction';
+import { getTransaction, updateTransaction, deleteTransaction, deleteAllTransactions  } from '../../src/api/transaction';
 
 const CATEGORY_ICONS = {
   food: UtensilsCrossed,
@@ -32,6 +33,9 @@ const CATEGORY_ICONS = {
   allowance: Gift,
   other: MoreHorizontal,
 };
+
+const EXPENSE_CATEGORIES = ['food', 'transport', 'bills', 'shopping', 'entertainment', 'health', 'education', 'other'];
+const INCOME_CATEGORIES = ['salary', 'allowance', 'other'];
 
 const EXTRA_COLORS = {
   salary: '#34D399',
@@ -94,6 +98,91 @@ export default function Transactions() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [filter, setFilter] = useState('all'); // 'all' | 'income' | 'expense'
+
+
+  const [editing, setEditing] = useState(null); // the transaction being edited
+const [form, setForm] = useState({ amount: '', description: '', type: 'expense', category: 'other' });
+const [saving, setSaving] = useState(false);
+
+const openEdit = (t) => {
+  setForm({
+    amount: String(t.amount),
+    description: t.description || t.title || '',
+    type: t.type,
+    category: normalizeCategory(t.category),
+  });
+  setEditing(t);
+};
+const closeEdit = () => setEditing(null);
+
+const saveEdit = async () => {
+  const amount = Number(form.amount.replace(/,/g, ''));
+  if (!amount || amount <= 0) {
+    Alert.alert('Invalid amount', 'Enter an amount greater than zero.');
+    return;
+  }
+  setSaving(true);
+  try {
+    const updated = await updateTransaction(editing._id, {
+      amount,
+      type: form.type,
+      category: form.category,
+      description: form.description.trim(),
+    });
+    setTransactions((prev) => prev.map((t) => (t._id === editing._id ? { ...t, ...updated } : t)));
+    closeEdit();
+  } catch (e) {
+    Alert.alert('Could not save', 'Something went wrong. Please try again.');
+  } finally {
+    setSaving(false);
+  }
+};
+
+const handleDelete = (t) => {
+  Alert.alert('Delete transaction?', 'This cannot be undone.', [
+    { text: 'Cancel', style: 'cancel' },
+    {
+      text: 'Delete',
+      style: 'destructive',
+      onPress: async () => {
+        const previous = transactions;
+        setTransactions((prev) => prev.filter((x) => x._id !== t._id)); // optimistic
+        closeEdit();
+        try {
+          await deleteTransaction(t._id);
+        } catch (e) {
+          console.log(e)
+          setTransactions(previous); // roll back
+          Alert.alert('Could not delete', 'Please try again.');
+        }
+      },
+    },
+  ]);
+};
+
+const handleDeleteAll = () => {
+  Alert.alert(
+    'Delete all transactions?',
+    'Every income and expense record will be permanently removed.',
+    [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete all',
+        style: 'destructive',
+        onPress: async () => {
+          const previous = transactions;
+          setTransactions([]);
+          try {
+            await deleteAllTransactions();
+          } catch (e) {
+            setTransactions(previous);
+            Alert.alert('Could not delete', 'Please try again.');
+          }
+        },
+      },
+    ]
+  );
+};
 
   const fetchTransactions = async () => {
     try {
@@ -319,12 +408,15 @@ export default function Transactions() {
                   const Icon = CATEGORY_ICONS[catKey] || MoreHorizontal;
                   const color = getCategoryColor(catKey);
                   return (
-                    <View
+                    <TouchableOpacity
                       key={t._id}
-                      className="flex-row items-center rounded-2xl p-4 mb-2.5"
-                      style={{ backgroundColor: theme.surface, borderWidth: 1, borderColor: theme.border }}
+  activeOpacity={0.7}
+  onPress={() => openEdit(t)}
+  onLongPress={() => handleDelete(t)}
+  className="flex-row items-center rounded-2xl p-4 mb-2.5"
+  style={{ backgroundColor: theme.surface, borderWidth: 1, borderColor: theme.border }}
                     >
-                      <View
+                        <View
                         className="w-11 h-11 rounded-full items-center justify-center mr-3"
                         style={{ backgroundColor: isDark ? `${color}26` : `${color}1A` }}
                       >
@@ -344,7 +436,8 @@ export default function Transactions() {
                       >
                         {isIncome ? '+' : '-'}{formatCurrency(t.amount)}
                       </Text>
-                    </View>
+                    </TouchableOpacity>
+                   
                   );
                 })}
               </View>
@@ -352,6 +445,101 @@ export default function Transactions() {
           )}
         </View>
       </ScrollView>
+      <Modal visible={!!editing} animationType="slide" transparent onRequestClose={closeEdit}>
+  <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+    <View className="rounded-t-3xl p-6" style={{ backgroundColor: theme.background }}>
+      <View className="flex-row items-center justify-between mb-5">
+        <Text style={{ color: theme.textPrimary }} className="text-lg font-bold">Edit transaction</Text>
+        <TouchableOpacity onPress={closeEdit}><X size={22} color={theme.textSecondary} /></TouchableOpacity>
+      </View>
+
+      {/* Type toggle */}
+      <View className="flex-row rounded-2xl p-1 mb-4"
+        style={{ backgroundColor: theme.surface, borderWidth: 1, borderColor: theme.border }}>
+        {['expense', 'income'].map((k) => {
+          const active = form.type === k;
+          return (
+            <TouchableOpacity key={k} className="flex-1 py-2.5 rounded-xl items-center"
+              style={{ backgroundColor: active ? theme.primary : 'transparent' }}
+              onPress={() => setForm((f) => ({
+                ...f, type: k,
+                category: (k === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES).includes(f.category) ? f.category : 'other',
+              }))}>
+              <Text className="text-xs font-bold capitalize"
+                style={{ color: active ? theme.onPrimary : theme.textSecondary }}>{k}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      <TextInput
+        value={form.amount}
+        onChangeText={(v) => setForm((f) => ({ ...f, amount: v }))}
+        keyboardType="decimal-pad"
+        placeholder="Amount"
+        placeholderTextColor={theme.textMuted}
+        className="rounded-2xl px-4 py-3 mb-3 text-base"
+        style={{ backgroundColor: theme.surface, borderWidth: 1, borderColor: theme.border, color: theme.textPrimary }}
+      />
+      <TextInput
+        value={form.description}
+        onChangeText={(v) => setForm((f) => ({ ...f, description: v }))}
+        placeholder="Description"
+        placeholderTextColor={theme.textMuted}
+        className="rounded-2xl px-4 py-3 mb-4 text-base"
+        style={{ backgroundColor: theme.surface, borderWidth: 1, borderColor: theme.border, color: theme.textPrimary }}
+      />
+
+      {/* Category chips */}
+      <View className="flex-row flex-wrap mb-6" style={{ gap: 8 }}>
+        {(form.type === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES).map((c) => {
+          const active = form.category === c;
+          const color = getCategoryColor(c);
+          return (
+            <TouchableOpacity key={c} onPress={() => setForm((f) => ({ ...f, category: c }))}
+              className="px-3 py-2 rounded-full"
+              style={{ backgroundColor: active ? color : theme.surface, borderWidth: 1, borderColor: active ? color : theme.border }}>
+              <Text className="text-xs font-semibold capitalize"
+                style={{ color: active ? '#fff' : theme.textSecondary }}>{c}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      <View className="flex-row" style={{ gap: 12 }}>
+        <TouchableOpacity onPress={() => handleDelete(editing)}
+          className="w-14 h-12 rounded-2xl items-center justify-center"
+          style={{ borderWidth: 1, borderColor: theme.expense }}>
+          <Trash2 size={18} color={theme.expense} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={saveEdit} disabled={saving}
+          className="flex-1 h-12 rounded-2xl items-center justify-center"
+          style={{ backgroundColor: theme.primary, opacity: saving ? 0.6 : 1 }}>
+          {saving ? <ActivityIndicator color={theme.onPrimary} /> :
+            <Text style={{ color: theme.onPrimary }} className="text-sm font-bold">Save changes</Text>}
+        </TouchableOpacity>
+      </View>
+    </View>
+  </KeyboardAvoidingView>
+</Modal>
     </View>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

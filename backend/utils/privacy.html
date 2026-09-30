@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nairawise Privacy Policy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF5F0;--surface:#FFFFFF;--ink:#0F231A;--muted:#4A6155;--line:#D6E3DA;--green:#0E5C3F;--soft:#DDEFE4;--goldbg:#FBEFD3;--goldln:#C98A17;--head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;--body:'Source Serif 4',Georgia,'Times New Roman',serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0A130E;--surface:#12211A;--ink:#E6F0EA;--muted:#9DB5A8;--line:#22372B;--green:#4FD08F;--soft:#16301F;--goldbg:#3A2E12;--goldln:#E9B04A}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh}
+h1,h2,.head{font-family:var(--head)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* hero */
+header.wrap{padding-top:24px}
+.hero{position:relative;overflow:hidden;border-radius:32px;padding:64px 48px;color:#fff;
+ background:radial-gradient(800px 380px at 88% -10%,#1E9A6B 0,transparent 62%),radial-gradient(500px 300px at 0% 100%,#0B4A33 0,transparent 70%),linear-gradient(135deg,#082F20,#0E5C3F)}
+.naira{position:absolute;bottom:-96px;left:-24px;font-family:var(--head);font-weight:800;line-height:1;color:rgba(255,255,255,.05);font-size:clamp(16rem,38vw,26rem);pointer-events:none;user-select:none}
+.hero-grid{position:relative;display:grid;gap:48px;align-items:center;grid-template-columns:1.15fr .85fr}
+.badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);font:600 14px var(--head)}
+.badge .i{width:16px;height:16px;color:#F2B84B}
+h1{font-size:clamp(2.5rem,6.5vw,4.4rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;max-width:12ch;margin-bottom:20px}
+.lead{font-size:1.25rem;color:rgba(255,255,255,.85);max-width:32em;margin-bottom:16px}
+.eff{font-size:.95rem;color:rgba(255,255,255,.6)}
+
+/* receipt */
+.receipt{position:relative;width:100%;max-width:340px;margin:0 auto;color:#0F231A;filter:drop-shadow(0 25px 25px rgba(0,0,0,.35));animation:print .9s cubic-bezier(.2,.8,.2,1) both;transform:rotate(2deg)}
+.receipt-body{background:#FFFEFA;padding:28px 24px 20px;font:13px/24px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.r-title{text-align:center;font-size:16px;font-weight:700;letter-spacing:.1em}
+.r-sub{text-align:center;font-size:12px;color:#4A6155;margin-bottom:16px}
+.r-line{display:flex;align-items:flex-end;gap:8px}
+.r-line i{flex:1;margin-bottom:4px;border-bottom:1px dotted rgba(15,35,26,.3)}
+.r-line b{font-weight:700}
+.r-rule{margin:16px 0;border-top:2px dashed rgba(15,35,26,.25)}
+.r-thanks{margin-top:20px;padding-right:64px;font-size:12px;color:#4A6155}
+.stamp{position:absolute;bottom:28px;right:16px;transform:rotate(-12deg);border:2px solid #0E5C3F;border-radius:6px;background:#FFFEFA;padding:4px 10px;font:800 12px system-ui,sans-serif;letter-spacing:.08em;color:#0E5C3F}
+.teeth{height:16px;background:linear-gradient(135deg,#FFFEFA 25%,transparent 0) -8px 0,linear-gradient(225deg,#FFFEFA 25%,transparent 0) -8px 0;background-size:16px 16px}
+@keyframes print{from{opacity:0;transform:translateY(-20px) rotate(4deg)}to{opacity:1;transform:translateY(0) rotate(2deg)}}
+@media (prefers-reduced-motion:reduce){.receipt{animation:none}html{scroll-behavior:auto}}
+
+/* promise panels */
+.promise{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:16px}
+.panel{border-radius:24px;padding:28px}
+.panel h2{font-size:1.25rem;font-weight:700;margin-bottom:16px}
+.panel ul{list-style:none;padding:0;display:grid;gap:12px;line-height:1.4}
+.panel li{display:flex;gap:12px}
+.dot{margin-top:2px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}
+.dot .i{width:14px;height:14px;stroke-width:3}
+.do{background:linear-gradient(135deg,#0E5C3F,#127A52);color:#fff}
+.do .dot{background:rgba(255,255,255,.2)}
+.dont{background:var(--surface);border:2px solid var(--green)}
+.dont .dot{background:#F2B84B;color:#0F231A}
+
+/* body layout */
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:40px;padding-top:24px;padding-bottom:64px}
+nav{align-self:start;position:sticky;top:24px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:16px;font-family:var(--head)}
+nav p{padding:0 12px;margin-bottom:8px;font-size:.95rem;font-weight:700;color:var(--muted);line-height:1.7}
+nav a{display:block;padding:8px 12px;border-radius:12px;font-size:.95rem;font-weight:500;line-height:1.7;color:var(--muted);text-decoration:none;transition:background .15s}
+nav a:hover{background:var(--soft)}
+nav a:focus-visible{outline:3px solid #F2B84B}
+nav a.on{background:var(--soft);color:var(--green);font-weight:700}
+main{min-width:0;display:grid;gap:24px}
+section{scroll-margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:32px}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.ico{width:44px;height:44px;border-radius:16px;background:var(--soft);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+.ico .i{width:22px;height:22px}
+section h2{font-size:1.65rem;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.prose{max-width:66ch;display:grid;gap:16px}
+.prose ul{padding-left:20px;display:grid;gap:8px}
+.prose li::marker{color:var(--green)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;margin-top:4px}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:1rem;line-height:1.55}
+th{text-align:left;background:var(--soft);color:var(--muted);font:700 .95rem var(--head);padding:14px 18px}
+td{padding:14px 18px;vertical-align:top;border-top:1px solid var(--line)}
+td:first-child{white-space:nowrap;font:700 1rem var(--head);color:var(--green)}
+.note{background:var(--soft);border-radius:16px;padding:16px 20px}
+.ph{background:var(--goldbg);border-bottom:2px dashed var(--goldln);border-radius:2px;padding:0 4px;color:var(--ink)}
+.contact{scroll-margin-top:24px;border:0;border-radius:24px;padding:40px;color:#fff;background:linear-gradient(135deg,#082F20,#0E5C3F);display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.contact h2{font-size:1.65rem;margin-bottom:8px}
+.contact p{color:rgba(255,255,255,.8)}
+.mail{display:inline-flex;align-items:center;gap:10px;background:#F2B84B;color:#0F231A;border-radius:999px;padding:12px 20px;font:700 1rem var(--head)}
+.mail .i{width:18px;height:18px}
+
+@media (max-width:1023px){.layout{grid-template-columns:1fr;gap:24px}nav{position:static}nav div{display:grid;grid-template-columns:1fr 1fr;column-gap:8px}.hero-grid{grid-template-columns:1fr}}
+@media (max-width:640px){body{font-size:17px}.wrap{padding:0 16px}.hero{padding:48px 24px}.promise{grid-template-columns:1fr}section{padding:24px}.contact{padding:28px}}
+@media (max-width:480px){nav div{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></symbol>
+<symbol id="list" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol>
+<symbol id="scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></symbol>
+<symbol id="share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol>
+<symbol id="scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+<symbol id="baby" viewBox="0 0 24 24"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></symbol>
+<symbol id="refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+<symbol id="mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+</svg>
+
+<header class="wrap">
+  <div class="hero">
+    <div class="naira" aria-hidden="true">₦</div>
+    <div class="hero-grid">
+      <div>
+        <span class="badge"><svg class="i"><use href="#shield"/></svg> Nairawise Privacy Policy</span>
+        <h1>Your money stays yours.</h1>
+        <p class="lead">Nairawise helps you track what comes in and what goes out. Here is what we collect, why, and the control you keep over it.</p>
+        <p class="eff">Effective 30 September 2026</p>
+      </div>
+      <div class="receipt">
+        <div class="receipt-body">
+          <p class="r-title">NAIRAWISE</p>
+          <p class="r-sub">Privacy receipt · 30 September 2026</p>
+          <div class="r-line"><span>Your data sold</span><i></i><b>₦0.00</b></div>
+          <div class="r-line"><span>Targeted ads</span><i></i><b>₦0.00</b></div>
+          <div class="r-line"><span>Bank logins asked</span><i></i><b>0</b></div>
+          <div class="r-line"><span>Delete anytime</span><i></i><b>Yes</b></div>
+          <div class="r-rule"></div>
+          <div class="r-line"><span>Price of your privacy</span><i></i><b>₦0.00</b></div>
+          <p class="r-thanks">Thank you for trusting us with your naira.</p>
+          <div class="stamp">NEVER SOLD</div>
+        </div>
+        <div class="teeth"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap promise">
+  <div class="panel do">
+    <h2 class="head">What we do</h2>
+    <ul>
+      <li><span class="dot"><svg class="i"><use href="#check"/></svg></span>Collect only what the app needs to work</li>
+      <li><span class="dot"><svg class="i"><use href="#check"/></svg></span>Keep your transactions tied to your account alone</li>
+      <li><span class="dot"><svg class="i"><use href="#check"/></svg></span>Let you edit, delete or clear transactions in the app</li>
+      <li><span class="dot"><svg class="i"><use href="#check"/></svg></span>Protect your data in transit and at rest</li>
+    </ul>
+  </div>
+  <div class="panel dont">
+    <h2 class="head">What we never do</h2>
+    <ul>
+      <li><span class="dot"><svg class="i"><use href="#x"/></svg></span>Sell your data or your spending habits</li>
+      <li><span class="dot"><svg class="i"><use href="#x"/></svg></span>Show ads targeted by your finances</li>
+      <li><span class="dot"><svg class="i"><use href="#x"/></svg></span>Ask for your bank login, card number or BVN</li>
+      <li><span class="dot"><svg class="i"><use href="#x"/></svg></span>Read your contacts, messages or bank alerts</li>
+    </ul>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <nav aria-label="Sections">
+    <p>On this page</p>
+    <div>
+      <a href="#collect" class="on">What we collect</a>
+      <a href="#use">How we use it</a>
+      <a href="#receipts">Receipt scanning</a>
+      <a href="#sharing">Who we share with</a>
+      <a href="#security">Keeping it safe</a>
+      <a href="#control">Deleting your data</a>
+      <a href="#rights">Your rights</a>
+      <a href="#children">Children</a>
+      <a href="#changes">Changes</a>
+      <a href="#contact">Contact us</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="collect">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#db"/></svg></span><h2>What we collect</h2></div>
+      <div class="prose">
+        <p>We collect the information you give us and a small amount generated by using the app.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Information</th><th>What it includes</th><th>Why we need it</th></tr></thead>
+            <tbody>
+              <tr><td>Account</td><td>Your name, email address and password. Your password is stored as a one-way hash, never in readable form.</td><td>To create and secure your account.</td></tr>
+              <tr><td>Transactions</td><td>Amount, type (income or expense), category, description and date for each entry you record.</td><td>To show your history, totals and spending breakdown.</td></tr>
+              <tr><td>Receipt images</td><td>Photos you choose to scan. See Receipt scanning below.</td><td>To read amounts off your receipts.</td></tr>
+              <tr><td>Preferences</td><td>Your currency and light or dark theme.</td><td>To remember how you like the app.</td></tr>
+              <tr><td>Technical data</td><td>Device model, operating system, app version and error logs.</td><td>To find and fix bugs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="use">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#list"/></svg></span><h2>How we use it</h2></div>
+      <div class="prose">
+        <ul>
+          <li>To run Nairawise: saving your transactions and calculating your totals.</li>
+          <li>To warn you when your spending is close to, or above, your income.</li>
+          <li>To keep the app reliable and secure, and to fix problems.</li>
+          <li>To answer you when you contact support.</li>
+          <li>To meet legal obligations.</li>
+        </ul>
+        <p>We rely on your consent and on the need to provide the service you signed up for. We do not use your financial data for advertising or profiling.</p>
+      </div>
+    </section>
+
+    <section id="receipts">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#scan"/></svg></span><h2>Receipt scanning</h2></div>
+      <div class="prose">
+        <p>When you scan a receipt, the photo is sent to our server so the text can be read and the amounts picked out. You then choose which figure to use for your transaction.</p>
+        <div class="note"><span class="ph">We do not keep the receipt image after the amounts have been read.</span> Text recognition is handled by <span class="ph">[OCR provider, or “our own server”]</span>.</div>
+      </div>
+    </section>
+
+    <section id="sharing">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#share"/></svg></span><h2>Who we share with</h2></div>
+      <div class="prose">
+        <p>We do not sell your personal data. We share it only with service providers that help us run Nairawise, and only as far as they need to.</p>
+        <ul>
+          <li>Hosting and database: <span class="ph">[provider name]</span></li>
+          <li>Receipt text recognition: <span class="ph">[provider name]</span></li>
+          <li>Authorities, when the law requires it or to protect people from harm.</li>
+          <li>A future owner of Nairawise, if the business is ever sold. Your rights in this policy would carry over.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="security">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#lock"/></svg></span><h2>Keeping it safe</h2></div>
+      <div class="prose">
+        <p>Data moves between the app and our servers over encrypted connections. Passwords are hashed, and every request is checked so you can only reach your own transactions.</p>
+        <p>No system is perfectly secure. Choose a strong password, keep it private, and log out on shared devices.</p>
+      </div>
+    </section>
+
+    <section id="control">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#trash"/></svg></span><h2>Deleting your data</h2></div>
+      <div class="prose">
+        <p>You are in control of what stays.</p>
+        <ul>
+          <li><strong>One transaction:</strong> open it on the Transactions screen and tap the bin icon, or press and hold it.</li>
+          <li><strong>Everything:</strong> tap Clear all on the Transactions screen.</li>
+          <li><strong>Your account:</strong> email us at <span class="ph">[support email]</span> and we will delete your account and its data within <span class="ph">[30]</span> days.</li>
+        </ul>
+        <p>Deleted transactions are removed from our live database straight away. Backup copies are overwritten within <span class="ph">[number]</span> days.</p>
+      </div>
+    </section>
+
+    <section id="rights">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#scale"/></svg></span><h2>Your rights</h2></div>
+      <div class="prose">
+        <p>Under the Nigeria Data Protection Act 2023, you can ask us to:</p>
+        <ul>
+          <li>Give you a copy of your personal data</li>
+          <li>Correct data that is wrong</li>
+          <li>Delete your data</li>
+          <li>Restrict or object to how we use it</li>
+          <li>Move your data to another service</li>
+          <li>Withdraw your consent at any time</li>
+        </ul>
+        <p>We give the same rights to users elsewhere where their local law applies. If you are unhappy with how we handle your data, you can complain to the Nigeria Data Protection Commission.</p>
+      </div>
+    </section>
+
+    <section id="children">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#baby"/></svg></span><h2>Children</h2></div>
+      <div class="prose">
+        <p>Nairawise is not meant for anyone under 18, and we do not knowingly collect their data. If you think a child has given us information, contact us and we will delete it.</p>
+      </div>
+    </section>
+
+    <section id="changes">
+      <div class="sh"><span class="ico"><svg class="i"><use href="#refresh"/></svg></span><h2>Changes to this policy</h2></div>
+      <div class="prose">
+        <p>If we change how we handle your data, we will update this page and the effective date above. For significant changes, we will also tell you in the app before they take effect.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div>
+        <h2 class="head">Questions about your privacy?</h2>
+        <p><span class="ph">[Company legal name]</span>, <span class="ph">[Registered address]</span></p>
+      </div>
+      <span class="mail"><svg class="i"><use href="#mail"/></svg> <span class="ph">[support email]</span></span>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  var links = document.querySelectorAll('nav a');
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); });
+    });
+  }, { rootMargin: '-15% 0px -70% 0px' });
+  links.forEach(function (a) {
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el) io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
