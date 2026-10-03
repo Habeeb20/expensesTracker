@@ -5,7 +5,7 @@
     "scheme": "nairawise",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/nairawise.png",
+    "icon": "./assets/nairawise-logo-rounded.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
@@ -19,9 +19,9 @@
        "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "foregroundImage": "./assets/nairawise-logo-rounded.png",
+        "backgroundImage": "./assets/nairawise-logo-rounded.png",
+        "monochromeImage": "./assets/nairawise-logo-rounded.png"
       },
       "permissions": [
         "android.permission.RECORD_AUDIO"
@@ -29,7 +29,7 @@
       "package": "com.codequor.nairawise"
     },
     "web": {
-      "favicon": "./assets/nairawise.png"
+      "favicon": "./assets/nairawise-logo-rounded.png"
     },
     "plugins": [
       "expo-router",
